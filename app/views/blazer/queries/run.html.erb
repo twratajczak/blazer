@@ -20,7 +20,9 @@
         First
         <% @rows = @rows.first(@row_limit) %>
       <% end %>
+      <%= link_to "←", blazer_query_path(@prev_time_range), title: "Previous time range", class: "btn btn-link" if @prev_time_range %>
       <%= pluralize(@rows.size, "row") %>
+      <%= link_to "→", blazer_query_path(@next_time_range), title: "Next time range", class: "btn btn-link" if @next_time_range %>
 
       <% @checks.select(&:state).each do |check| %>
         &middot; <small class="check-state <%= check.state.parameterize.gsub("-", "_") %>"><%= link_to check.state.upcase, edit_check_path(check) %></small>

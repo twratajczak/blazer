@@ -249,6 +249,14 @@ module Blazer
           end
         end
 
+        if @query.present? && @statement.values["start_time"] && @statement.values["end_time"]
+          start_time = @statement.values["start_time"].to_datetime
+          end_time = @statement.values["end_time"].to_datetime
+          diff = end_time - start_time
+          @next_time_range = { start_time: start_time + diff, end_time: end_time + diff}
+          @prev_time_range = { start_time: start_time - diff, end_time: end_time - diff}
+        end
+
         @min_width_types = @columns.each_with_index.select { |c, i| @first_row[i].is_a?(Time) || @first_row[i].is_a?(String) || @data_source.smart_columns[c] }.map(&:last)
 
         @boom = @result.boom if @result

@@ -39,5 +39,9 @@ module Blazer
     def blazer_series_name(k)
       k.nil? ? "null" : k.to_s
     end
+
+    def blazer_query_path(params = {})
+      "?" + request.query_parameters.merge(params).to_query
+    end
   end
 end
